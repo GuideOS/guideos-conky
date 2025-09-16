@@ -1,7 +1,7 @@
 # guideos-conky
 
 - `conky-all` must be installed
-- Ubunto Mono Nerd Regular Font must be installed
+- Ubunto Mono Nerd Regular Font must be installed (https://www.nerdfonts.com/font-downloads)
 - Python3 must be installed
 - `wget` must be installed
 
