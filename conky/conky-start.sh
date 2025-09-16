@@ -6,5 +6,5 @@ sleep 3
 # Kill all current conky processes.
 killall conky
 
-conky -c /usr/lib/conky/GuideOS &
-sleep 2 && conky -c /usr/lib/conky/GuideOS-Time &
+conky -c /usr/lib/guideos-conky/GuideOS &
+sleep 2 && conky -c /usr/lib/guideos-conky/GuideOS-Time &
