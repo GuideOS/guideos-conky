@@ -3,6 +3,7 @@
 - conky-all must be installed
 - Ubunto Mono Nerd Regular Font must be installed
 - Python3 must be installed
+- wget must be installed
 
 # Screenshot
 
