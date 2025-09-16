@@ -54,7 +54,7 @@ ${voffset 5}${goto 0}${color2}${font2}  󰇅 System
 ${voffset 5}${goto 0}${color1}${font1}   ${nodename} ${alignr}${execi 3600 cat /etc/guideos-version}  
 ${voffset 2}${goto 0}${color1}${font1}   Kernel ${alignr} ${kernel}  
 ${voffset 2}${goto 0}${color1}${font1}   Laufzeit ${alignr}${uptime_short}  
-${voffset 2}${goto 0}${color1}${font1}   Updates ${alignr} ${execi 3600 python3 ~/.conky/check-update.py}  
+${voffset 2}${goto 0}${color1}${font1}   Updates ${alignr} ${execi 3600 python3 /usr/lib/conky/check-update.py}  
 ${voffset 2}${goto 0}${color1}${font1}   CPU ${hwmon 0 temp 1}°C ${freq} MHz ${alignr}${exec grep 'model name' /proc/cpuinfo | head -n 1 | cut -c14-30}  
 ${voffset 2}${goto 0}${color1}${font1}   ${cpu cpu0}%${alignr}${color2}${cpubar cpu0 10,140}  
 ${voffset 2}${goto 0}${color1}${font1}   RAM ${alignr} ${mem} / ${memmax}  
