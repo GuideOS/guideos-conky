@@ -18,7 +18,7 @@ conky.config = {
 	own_window_argb_visual = true,
 	own_window_argb_value = 80,
 	own_window_colour = '#696969',
-	minimum_height = 530,
+	minimum_height = 490,
 	maximum_width = 450,
 	minimum_width = 450,
 	alignment = 'top_right',
@@ -71,6 +71,4 @@ ${voffset 2}${goto 0}${color1}${font1}   WAN IP v4${alignr} ${execi 3600 wget ht
 ${voffset 2}${goto 0}${color1}${font1}   WAN IP v6${alignr} ${execi 3600 wget http://v6.ipv6-test.com/api/myip.php -q -O -}  
 ${voffset 10}${goto 0}${color2}${font2}  󰕒  Up ${alignr} 󰇚  Down  
 ${voffset 2}${goto 0}${color1}${font1}   ${upspeedf enp34s0} kb/s ${alignr} ${downspeedf enp34s0} kb/s  
-${voffset 10}${goto 0}${color2}${font2}    Grafikkarte
-${voffset 5}${goto 0}${color1}${font1}   GPU-Name ${alignr}${execi 3600 lspci | grep -i 'vga' | sed 's/.*: //' | cut -c27-48}  
 ]]
