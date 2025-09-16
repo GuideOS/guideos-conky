@@ -20,7 +20,7 @@ conky.config = {
 	minimum_height = 200,
 	alignment = 'bottom_right',
 	gap_x = 150,
-	gap_y = 400,
+	gap_y = 200,
 	
 -- Text settings
 	use_xft = true,
