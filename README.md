@@ -9,7 +9,7 @@
 
 In order to display your own hardware correctly, you have to adjust it.
 
-In /usr/lib/guideos-conky/GuideOS
+In `/usr/lib/guideos-conky/GuideOS`
 
 - to add more hard drives, simply use the lines
 
