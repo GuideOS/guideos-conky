@@ -15,7 +15,6 @@ In `/usr/lib/guideos-conky/GuideOS`
 
 ```
   ${voffset 5}${goto 0}${color1}${font1}   Root - ${fs_type /} ${alignr} ${fs_used /} / ${fs_size /}  
-  ${voffset 2}${goto 0}${color1}${font1}   IO ${diskio_read /dev/nvme0n1p3} / ${diskio_write /dev/nvme0n1p3} ${alignr}${color2}${diskiograph /dev/nvme0n1p3 10,140 DCDCDC 696969}  
 ```
 - copy and paste underneath. Then adjust the addresses e.g. `/home/{$username}`
 
