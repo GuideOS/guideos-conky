@@ -25,8 +25,8 @@ conky.config = {
 -- Text settings
 	use_xft = true,
 	override_utf8_locale = true,
-	font1 = 'UbuntuMono Nerd Font:style=Regular:size=10',
-	font2 = 'UbuntuMono Nerd Font:style=Regular:size=12',
+	font1 = 'UbuntuMono Nerd Font:style=Regular:size=14',
+	font2 = 'UbuntuMono Nerd Font:style=Regular:size=16',
 	xftalpha = 1.0,
 	uppercase = false,
 	default_color = '#DCDCDC',
