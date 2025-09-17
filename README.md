@@ -18,8 +18,6 @@ In `/usr/lib/guideos-conky/GuideOS`
 ```
 - copy and paste underneath. Then adjust the addresses e.g. `/home/{$username}`
 
-- for IO from harddrive e.g. `/dev/sda1` or `/dev/nvme0n1p2`
-
 - for the correct display of the network category, the correct network card must be entered e.g. `enp34s0`
 
 - to change the length or width of the window, you can do this with the following parameters
