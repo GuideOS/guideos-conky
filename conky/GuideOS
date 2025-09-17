@@ -57,13 +57,13 @@ ${voffset 5}${goto 0}${color1}${font1}   ${nodename} ${alignr}${execi 3600 cat /
 ${voffset 2}${goto 0}${color1}${font1}   Kernel ${alignr} ${kernel}  
 ${voffset 2}${goto 0}${color1}${font1}   Laufzeit ${alignr}${uptime_short}  
 ${voffset 2}${goto 0}${color1}${font1}   Updates ${alignr} ${execi 3600 python3 /usr/lib/guideos-conky/check-update.py}  
-${voffset 2}${goto 0}${color1}${font1}   CPU ${hwmon 1 temp 1}°C - ${hwmon 2 fan 2} RPM - ${freq} MHz ${alignr}${exec grep 'model name' /proc/cpuinfo | head -n 1 | cut -c14-30}  
+${voffset 2}${goto 0}${color1}${font1}   CPU ${alignr}${exec grep 'model name' /proc/cpuinfo | head -n 1 | cut -c14-30}  
 ${voffset 2}${goto 0}${color1}${font1}   ${cpu cpu0}%${alignr}${color2}${cpubar cpu0 10,140}  
 ${voffset 2}${goto 0}${color1}${font1}   RAM ${alignr} ${mem} / ${memmax}  
 ${voffset 2}${goto 0}${color1}${font1}   ${memperc}%${alignr}${color2}${membar 10,140}  
 ${voffset 2}${goto 0}${color1}${font1}   SWAP ${alignr} ${swap} / ${swapmax}  
 ${voffset 10}${goto 0}${color2}${font2}  󰋊  Festplatte
-${voffset 5}${goto 0}${color1}${font1}   Root - ${fs_type /} - ${hwmon 0 temp 1}°C ${alignr} ${fs_used /} / ${fs_size /}  
+${voffset 5}${goto 0}${color1}${font1}   Root - ${fs_type /} ${alignr} ${fs_used /} / ${fs_size /}  
 ${voffset 2}${goto 0}${color1}${font1}   IO ${diskio_read /dev/nvme0n1p3} / ${diskio_write /dev/nvme0n1p3} ${alignr}${color2}${diskiograph /dev/nvme0n1p3 10,140 DCDCDC 696969}  
 ${voffset 10}${goto 0}${color2}${font2}    Netz 
 ${voffset 5}${goto 0}${color1}${font1}   LAN IP${alignr} ${addr enp34s0}  
