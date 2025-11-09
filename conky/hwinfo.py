@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# ktt73 for GuideOS - 2025
 
 import platform
 import psutil
