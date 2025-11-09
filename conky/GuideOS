@@ -53,6 +53,7 @@ conky.config = {
 conky.text = [[
 ${image /usr/lib/guideos-conky/images/guideos.png -p 390,10 -s 40x40}
 ${voffset 5}${goto 0}${color2}${font2}  󰇅 System
+${voffset 5}${goto 0}${color1}${font1}   SysInfo:${alignr}${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py}
 ${voffset 5}${goto 0}${color1}${font1}   ${nodename} ${alignr}${execi 3600 cat /etc/guideos-version}  
 ${voffset 2}${goto 0}${color1}${font1}   Kernel ${alignr} ${kernel}  
 ${voffset 2}${goto 0}${color1}${font1}   Laufzeit ${alignr}${uptime_short}  
