@@ -16,49 +16,38 @@ def cpu_info():
 
 def ram_info():
     mem = psutil.virtual_memory()
-    return f"{mem.total // (1024 ** 2)} MB gesamt, {mem.available // (1024 ** 2)} MB frei"
+    return f"gesamt {mem.total // (1024 ** 2)} MB | frei {mem.available // (1024 ** 2)} MB | benutzt {mem.used // (1024 ** 2)} MB"
 
 def disk_info():
-    invalid_mountpoints = ['/proc', '/sys', '/run', '/dev', '/var/lib/snapd', '/snap', '/boot/efi']
-    valid_fs = ['ext4', 'xfs', 'btrfs', 'ntfs', 'vfat']
-    
-    disks = psutil.disk_partitions(all=False)  # nur wirklich gemountete Partitionen
-    
+    import psutil
+    invalidmountpoints = ["/proc", "/sys", "/run", "/dev", "/var/lib/snapd", "/snap", "/boot/efi"]
+    valid_mountpoints = ["/media", "/run/media"]
+    validfs = ["ext4", "xfs", "btrfs", "ntfs", "vfat", "exfat"]
+    disks = psutil.disk_partitions(all=False)
     infos = []
-    seen_devices = set()
-    seen_mounts = set()
-    
+    seendevices = set()
+    seenmounts = set()
     for d in disks:
-        if any(d.mountpoint.startswith(m) for m in invalid_mountpoints):
+        if any(d.mountpoint.startswith(m) for m in invalidmountpoints):
+            if not any(d.mountpoint.startswith(v) for v in valid_mountpoints):
+                continue
+        if d.fstype.lower() not in validfs:
             continue
-        if d.fstype.lower() not in valid_fs:
+        if d.device in seendevices:
             continue
-
-        # Skip if device or mountpoint duplicate oder Unterverzeichnis schon gelistet
-        if d.device in seen_devices:
+        if d.mountpoint in seenmounts:
             continue
-
-        if any(d.mountpoint.startswith(mnt + '/') or d.mountpoint == mnt for mnt in seen_mounts):
-            continue
-
-        seen_devices.add(d.device)
-        seen_mounts.add(d.mountpoint)
-        
+        seendevices.add(d.device)
+        seenmounts.add(d.mountpoint)
         usage = psutil.disk_usage(d.mountpoint)
-        
-        mount_name = d.mountpoint.upper()
-        if mount_name == '/':
-            mount_name = 'ROOT'
-        elif mount_name == '/home':
-            mount_name = 'HOME'
-        elif mount_name == '/boot':
-            mount_name = 'BOOT'
-        elif mount_name == '/boot/efi':
-            mount_name = 'EFI'
-        
-        infos.append(f"{mount_name}: {usage.total // (1024 ** 3)} GB, frei: {usage.free // (1024 ** 3)} GB")
-        
+        # nur letzter Name des Mountpoints
+        if d.mountpoint == "/":
+            mountname = "ROOT"
+        else:
+            mountname = os.path.basename(d.mountpoint.rstrip('/')).upper()
+        infos.append(f"{mountname} | {d.fstype} | {usage.total // 1024 ** 3} GB | frei {usage.free // 1024 ** 3} GB | benutzt {usage.used // 1024 ** 3} GB")
     return "\n".join(infos)
+
 
 
 def network_info():
@@ -67,8 +56,8 @@ def network_info():
     for iface, addrs in psutil.net_if_addrs().items():
         for addr in addrs:
             if addr.family == socket.AF_INET and iface != 'lo':
-                ips.append(f"{iface}: {addr.address}")
-    return f"{hostname} | IPs: {' | '.join(ips)}"
+                ips.append(f"{addr.address} | {iface}")
+    return f"LAN IP v4 {' | '.join(ips)}"
 
 
 def gpu_info():
@@ -124,3 +113,4 @@ if __name__ == "__main__":
             print("Unbekannter Parameter")
     else:
         print("Bitte Parameter angeben: cpu | ram | disk | net | gpu")
+

@@ -50,26 +50,37 @@ conky.config = {
 }
 
 conky.text = [[
-${image /usr/lib/guideos-conky/images/guideos.png -p 250,10 -s 40x40}
+${image /usr/lib/guideos-conky/images/guideos.png -p 10,10 -s 40x40}
 
 
-${nodename} ${alignr}${execi 3600 cat /etc/guideos-version} 
 
-${exec grep 'model name' /proc/cpuinfo | head -n 1 | cut -c14-30} ${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py cpu} ${alignr} CPU
+${font2}${nodename} powered by ${execi 3600 cat /etc/guideos-version}
 
-${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py ram} ${alignr} RAM
+${font2}– CPU
+${font1}${exec grep 'model name' /proc/cpuinfo | head -n 1 | cut -c14-30} ${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}
 
-${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py disk} ${alignr} Disk
+${font2}– RAM
+${font1}${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py ram}
 
-${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py gpu} ${alignr} GPU
+${font2}– GPU
+${font1}${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py gpu}
 
-${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py net} ${alignr} Netz
+${font2}– Netzwerk
+${font1}${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py net}
+${font1}WAN IP v4 ${execi 3600 wget http://v4.ipv6-test.com/api/myip.php -q -O -}  
+${font1}WAN IP v6 ${execi 3600 wget http://v6.ipv6-test.com/api/myip.php -q -O -}  
 
-${kernel} ${alignr} Kernel
+${font2}– Kernel
+${font1}${kernel}
 
-${uptime_short} ${alignr} Laufzeit
+${font2}– Laufzeit
+${font1}${uptime_short}
 
-${execi 3600 python3 /usr/lib/guideos-conky/check-update.py} ${alignr} Updates
+${font2}– Updates
+${font1}${execi 3600 python3 /usr/lib/guideos-conky/check-update.py}
+
+${font2}– Disk(s)
+${font1}${execpi 3600 python3 /usr/lib/guideos-conky/hwinfo.py disk}
 
 ]]
 
