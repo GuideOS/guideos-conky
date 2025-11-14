@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+# actionschnitzel for GuideOS - 2025
+# adapted for guideos-conky by ktt73 - 2025
 
 import subprocess
 
@@ -27,5 +29,4 @@ def get_update_count():
 
 if __name__ == "__main__":
     get_update_count()
-
 
