@@ -8,4 +8,4 @@
 
 # Screenshot
 
-<img width="665" height="905" alt="Screenshot" src="https://github.com/user-attachments/assets/a9195267-a412-4bd3-b5fb-dec18d6e671d" />
+<img width="505" height="527" alt="screenshot" src="https://github.com/user-attachments/assets/40215fdc-2054-4e50-9964-c18bb69bfa58" />
