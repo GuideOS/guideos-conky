@@ -1,5 +1,13 @@
 # guideos-conky
 
+This Conky tool determines the hardware used via a Python script, as well as update information. Therefore, no user intervention is required.
+
+#Installation
+
+´´´
+sudo apt update
+sudo apt install guideos-conky´´´
+
 - `conky-all` must be installed
 - Ubunto Mono Nerd Regular Font must be installed (https://www.nerdfonts.com/font-downloads)
 - Python3 must be installed
