@@ -95,7 +95,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         arg = sys.argv[1]
         if arg == "cpu":
-            print(cpu_type())  # nur der reine CPU Typ
+            print(cpu_type())
         elif arg == "ram":
             print(ram_info())
         elif arg == "disk":
