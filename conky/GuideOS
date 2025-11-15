@@ -52,7 +52,7 @@ conky.config = {
 }
 
 conky.text = [[
-${image /usr/lib/guideos-conky/images/guideos.png -p 0,10 -s 40x40}
+${image /usr/lib/guideos-conky/images/guideos.png -p 8,10 -s 40x40}
 
 
 
