@@ -18,13 +18,13 @@ Conky himself reads the following:
 - kernel
 - runtime
 
-#Installation
+# Installation
 ```
 sudo apt update
 sudo apt install guideos-conky
 ```
 
-#Requirement
+# Requirement
 
 - `conky-all` must be installed
 - Ubunto Mono Nerd Regular Font must be installed (https://www.nerdfonts.com/font-downloads)
