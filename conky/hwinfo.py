@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 # ktt73 for GuideOS - 2025
 
 import sys
@@ -7,6 +6,15 @@ import platform
 import psutil
 import socket
 import os
+
+def cpu_type():
+    try:
+        with open("/proc/cpuinfo") as f:
+            for line in f:
+                if line.startswith("model name"):
+                    return line.split(":", 1)[1].strip()
+    except Exception as e:
+        return f"CPU Typ unbekannt ({e})"
 
 def cpu_info():
     cpu = platform.processor()
@@ -20,7 +28,6 @@ def ram_info():
     return f"gesamt {mem.total // (1024 ** 2)} MB | frei {mem.available // (1024 ** 2)} MB | benutzt {mem.used // (1024 ** 2)} MB"
 
 def disk_info():
-    import psutil
     invalidmountpoints = ["/proc", "/sys", "/run", "/dev", "/var/lib/snapd", "/snap", "/boot/efi"]
     valid_mountpoints = ["/media", "/run/media"]
     validfs = ["ext4", "xfs", "btrfs", "ntfs", "vfat", "exfat"]
@@ -28,7 +35,6 @@ def disk_info():
     infos = []
     seendevices = set()
     seenmounts = set()
-
     for d in disks:
         if any(d.mountpoint.startswith(m) for m in invalidmountpoints):
             if not any(d.mountpoint.startswith(v) for v in valid_mountpoints):
@@ -42,13 +48,11 @@ def disk_info():
         seendevices.add(d.device)
         seenmounts.add(d.mountpoint)
         usage = psutil.disk_usage(d.mountpoint)
-        # nur letzter Name des Mountpoints
         if d.mountpoint == "/":
             mountname = "ROOT"
         else:
             mountname = os.path.basename(d.mountpoint.rstrip('/')).upper()
         infos.append(f"{mountname} | {d.fstype} | {usage.total // 1024 ** 3} GB | frei {usage.free // 1024 ** 3} GB | benutzt {usage.used // 1024 ** 3} GB")
-
     return "\n".join(infos)
 
 def network_info():
@@ -65,8 +69,6 @@ def gpu_info():
         output = os.popen("lspci | grep VGA").read().strip()
         if not output:
             return "GPU unbekannt"
-        # Beispielausgabe lspci VGA: "01:00.0 VGA compatible controller: NVIDIA Corporation GeForce RTX 3060"
-        # Suche nach bekannten Herstellern als Schlüsselwörter
         known_manufacturers = ['NVIDIA', 'AMD', 'Advanced Micro Devices', 'Intel', 'ATI', 'Broadcom', 'VMware']
         manufacturer_found = None
         for man in known_manufacturers:
@@ -75,15 +77,12 @@ def gpu_info():
                 break
         if manufacturer_found:
             model = output.split(manufacturer_found, 1)[-1].strip()
-            # Für 'Advanced Micro Devices' kurz 'AMD'
             if manufacturer_found == 'Advanced Micro Devices':
                 manufacturer_found = 'AMD'
-            # Spezielle Anpassung für NVIDIA
             if manufacturer_found == 'NVIDIA':
                 model = model.replace("Corporation", "").strip()
             return f"{manufacturer_found} {model}"
         else:
-            # Kein bekannter Hersteller gefunden, gib komplette Beschreibung ab Herstellerwort „VGA compatible controller“ zurück
             parts = output.split("VGA compatible controller:", 1)
             if len(parts) == 2:
                 return parts[1].strip()
@@ -96,7 +95,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         arg = sys.argv[1]
         if arg == "cpu":
-            print(cpu_info())
+            print(cpu_type())  # nur der reine CPU Typ
         elif arg == "ram":
             print(ram_info())
         elif arg == "disk":
