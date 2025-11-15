@@ -2,11 +2,29 @@
 
 This Conky tool determines the hardware used via a Python script, as well as update information. Therefore, no user intervention is required.
 
-#Installation
+The following information is retrieved via Python: 
+- CPU type
+- RAM
+- GPU type
+- network interface and IP address
+- mounted hard drive partitions
+- mounted USB drives
+- number of updates
 
-´´´
+Conky himself reads the following:
+- nodename
+- GuideOS version
+- ext. IP's
+- kernel
+- runtime
+
+#Installation
+```
 sudo apt update
-sudo apt install guideos-conky´´´
+sudo apt install guideos-conky
+```
+
+#Requirement
 
 - `conky-all` must be installed
 - Ubunto Mono Nerd Regular Font must be installed (https://www.nerdfonts.com/font-downloads)
