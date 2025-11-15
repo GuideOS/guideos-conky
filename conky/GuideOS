@@ -58,7 +58,7 @@ ${image /usr/lib/guideos-conky/images/guideos.png -p 8,10 -s 40x40}
 
 ${font3}${nodename} powered by ${execi 21600 cat /etc/guideos-version}
 
-${font2}󰻠  CPU [${exec grep 'model name' /proc/cpuinfo | head -n 1 | cut -c14-30} ${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}]
+${font2}󰻠  CPU [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}]
 
 ${font2}󰘚  RAM [${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py ram}]
 
