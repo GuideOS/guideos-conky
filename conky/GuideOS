@@ -62,7 +62,7 @@ ${font2}󰻠  CPU [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}]
 
 ${font2}󰘚  RAM [${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py ram}]
 
-${font2}  GPU [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu}]
+${font2}󰾲  GPU [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu}]
 
 ${font2}  Kernel [${kernel}]
 
