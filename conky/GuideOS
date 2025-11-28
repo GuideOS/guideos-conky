@@ -79,7 +79,3 @@ ${font2}  Disk(s)
 ${font1}${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py disk}
 
 ]]
-
-
-]]
-
