@@ -7,4 +7,4 @@ sleep 5
 killall conky
 
 conky -c /usr/lib/guideos-conky/GuideOS &
-sleep 5 && conky -c /usr/lib/guideos-conky/GuideOS-Time &
+#sleep 5 && conky -c /usr/lib/guideos-conky/GuideOS-Time &
