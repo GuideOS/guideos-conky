@@ -19,6 +19,7 @@ set -e
 [ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Regular.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Regular.ttf
 
 # download nerd font ubuntu mono to temp folder and unzip to /usr/share/fonts/nerd-fonts
+mkdir -p /usr/share/fonts/nerd-fonts/UbuntuMono
 cd /tmp
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/UbuntuMono.zip
 unzip UbuntuMono.zip -d /usr/share/fonts/nerd-fonts/UbuntuMono/

@@ -1,4 +1,4 @@
-guideos-conky (1.1) unstable; urgency=medium
+guideos-conky (1.1-1) unstable; urgency=medium
 
   * Added installation of guideos-conky.desktop to /usr/share/applications.
   * Updated rules file to include /usr/lib/guideos-conky installation.
