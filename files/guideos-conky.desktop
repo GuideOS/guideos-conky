@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=2.1
+Exec=guideos-conky-ui
+Name=GuideOS Conky
+Name[de]=GuideOS Conky
+GenericName=Guideos Conky
+Comment=GuideOS Conky Configuration and Scripts
+Comment[de]=GuideOS Conky Konfiguration und Skripte
+Encoding=UTF-8
+Terminal=false
+Type=Application
+Categories=GuideOS;
+Icon=guideos-conky

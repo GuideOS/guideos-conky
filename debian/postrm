@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+# Remove nerd fonts from /usr/share/fonts/nerd-fonts
+rm -rf /usr/share/fonts/nerd-fonts/UbuntuMono
+fc-cache -fv
+exit 0
+# End of file

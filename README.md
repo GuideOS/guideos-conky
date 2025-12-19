@@ -34,4 +34,5 @@ sudo apt install guideos-conky
 
 # Screenshot
 
-<img width="505" height="527" alt="screenshot" src="https://github.com/user-attachments/assets/40215fdc-2054-4e50-9964-c18bb69bfa58" />
+<img width="488" height="542" alt="guideos-conky" src="https://github.com/user-attachments/assets/74a7d264-6ec8-4f56-8311-1d3c7bb88db9" />
+

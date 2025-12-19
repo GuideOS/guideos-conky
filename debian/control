@@ -1,0 +1,14 @@
+Source: guideos-conky
+Section: misc
+Priority: optional
+Maintainer: Actionschnitzel <actionschnitzel@guideos.de>
+Build-Depends: debhelper-compat (= 13), bash
+Standards-Version: 1.0
+Homepage: https://guideos.de
+
+Package: guideos-conky
+Architecture: all
+Depends: ${misc:Depends}, bash, conky-all, wget, python3, psutils
+Description: Guideos Conky configuration and scripts
+ This package contains the configuration files and scripts for the guideos
+ conky setup, providing system monitoring and information display on the desktop.
