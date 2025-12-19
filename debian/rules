@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+PACKAGE := guideos-conky
+
+%:
+	dh $@
+
+override_dh_install:
+	
+	install -d debian/$(PACKAGE)/usr/lib/guideos-conky/
+	install -d debian/$(PACKAGE)/usr/bin/
+	install -d debian/$(PACKAGE)/usr/share/metainfo/
+	install -d debian/$(PACKAGE)/usr/share/applications/
+	install -d debian/$(PACKAGE)/usr/share/icons/hicolor/scalable/apps
+
+	install -m 644 files/conky/GuideOS debian/$(PACKAGE)/usr/lib/guideos-conky/
+	install -m 644 files/conky/GuideOS-Time debian/$(PACKAGE)/usr/lib/guideos-conky/
+	install -m 755 files/conky/check-update.py debian/$(PACKAGE)/usr/lib/guideos-conky/
+	install -m 755 files/conky/conky-start.sh debian/$(PACKAGE)/usr/lib/guideos-conky/
+	install -m 755 files/conky/hwinfo.py debian/$(PACKAGE)/usr/lib/guideos-conky/
+	cp -r files/conky/images debian/$(PACKAGE)/usr/lib/guideos-conky/
+
+	install -m 755 files/conky/guideos-conky-ui debian/$(PACKAGE)/usr/lib/guideos-conky/
+	ln -sf /usr/lib/guideos-conky/guideos-conky-ui debian/$(PACKAGE)/usr/bin/guideos-conky-ui
+
+	install -m 644 files/io.github.guideos.guideos_conky.metainfo.xml debian/$(PACKAGE)/usr/share/metainfo/
+	install -m 644 files/guideos-conky.desktop debian/$(PACKAGE)/usr/share/applications/
+	install -D -m 644 files/guideos-conky.svg debian/$(PACKAGE)/usr/share/icons/hicolor/scalable/apps/guideos-conky.svg
+
+	dh_install

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.guideos.guideos_conky</id>
+  
+  <name>GuideOS Conky</name>
+  <summary>Guideos Conky configuration and scripts</summary>
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  
+  <description>
+    <p>
+      This package contains the configuration files and scripts for the GuideOS Conky setup, providing system monitoring and information display on the desktop.
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">guideos-conky.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://github.com/GuideOS/guideos-conky/blob/screenshots/gc-screenshot.png?raw=true</image>
+    </screenshot>
+  </screenshots>
+</component>

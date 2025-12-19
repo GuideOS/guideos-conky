@@ -1,0 +1,13 @@
+guideos-conky (1.1) unstable; urgency=medium
+
+  * Added installation of guideos-conky.desktop to /usr/share/applications.
+  * Updated rules file to include /usr/lib/guideos-conky installation.
+  * Fixed update scan
+
+ -- Actionschnitzel <actionschnitzel@guideos.de>  Fri, 19 Dec 2025 10:00:00 +0100
+
+guideos-conky (1.0) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Actionschnitzel <actionschnitzel@guideos.de>  Fri, 21 Nov 2025 15:31:29 +0100

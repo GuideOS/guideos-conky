@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+# Remove specific files if they exist before downloading new ones
+[ -f /usr/share/fonts/nerd-fonts/LICENCE.txt ] && rm -f /usr/share/fonts/nerd-fonts/LICENCE.txt
+[ -f /usr/share/fonts/nerd-fonts/LICENCE-FAQ.txt ] && rm -f /usr/share/fonts/nerd-fonts/LICENCE-FAQ.txt
+[ -f /usr/share/fonts/nerd-fonts/README.md ] && rm -f /usr/share/fonts/nerd-fonts/README.md
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Bold.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Bold.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-BoldItalic.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-BoldItalic.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Italic.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Italic.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-Bold.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-Bold.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-BoldItalic.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-BoldItalic.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-Italic.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-Italic.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-Regular.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontMono-Regular.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-Bold.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-Bold.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-BoldItalic.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-BoldItalic.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-Italic.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-Italic.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-Regular.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFontPropo-Regular.ttf
+[ -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Regular.ttf ] && rm -f /usr/share/fonts/nerd-fonts/UbuntuMonoNerdFont-Regular.ttf
+
+# download nerd font ubuntu mono to temp folder and unzip to /usr/share/fonts/nerd-fonts
+cd /tmp
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/UbuntuMono.zip
+unzip UbuntuMono.zip -d /usr/share/fonts/nerd-fonts/UbuntuMono/
+fc-cache -fv
+rm UbuntuMono.zip
+exit 0
+# End of file
