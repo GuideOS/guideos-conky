@@ -38,6 +38,14 @@ conky.config = {
 	default_color = '#DCDCDC',
 	color1 = '#DCDCDC',
 	color2 = '#4F4F4F',
+	color3 = '#0072b5',
+
+-- GuideOS Farben (https://guideos.de/download/)
+-- Icon-Grundfarbe hellblau	#1eadf4
+-- Logo&Schriftzug blau		#0072b5
+-- Logo	lila			#3c2a42
+-- Logo	weiss			#ffffff
+
 
 -- lila 	#8A2BE2
 -- blau 	#1793d1
@@ -55,29 +63,26 @@ conky.text = [[
 ${image /usr/lib/guideos-conky/images/guideos.png -p 8,10 -s 40x40}
 
 
+${color3}${font3}${nodename} powered by ${execi 21600 cat /etc/guideos-version}${color1}
 
-${font3}${nodename} powered by ${execi 21600 cat /etc/guideos-version}
+${font2}  ${color3}Kernel${color1} [${kernel}]
 
-${font2}󰻠  CPU [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}]
+${font2}󰞌  ${color3}Laufzeit${color1} [${uptime_short}]
 
-${font2}󰘚  RAM [${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py ram}]
+${font2}󰚰  ${color3}Updates${color1} [${execi 21600 python3 /usr/lib/guideos-conky/check-update.py}]
 
-${font2}  GPU [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu}]
+${font2}󰻠  ${color3}CPU${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}]
 
-${font2}  Treiber [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu_driver}]
+${font2}󰘚  ${color3}RAM${color1} [${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py ram}]
 
-${font2}  Kernel [${kernel}]
+${font2}  ${color3}GPU${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu}]
 
-${font2}󰞌  Laufzeit [${uptime_short}]
+${font2}  ${color3}Treiber${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu_driver}]
 
-${font2}󰚰  Updates [${execi 21600 python3 /usr/lib/guideos-conky/check-update.py}]
-
-${font2}󰛳  Netzwerk
+${font2}󰛳  ${color3}Netzwerk${color1}
 ${font1}${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py net}
-${font1}WAN IP v4 ${execi 60 wget http://v4.ipv6-test.com/api/myip.php -q -O -}  
-${font1}WAN IP v6 ${execi 60 wget http://v6.ipv6-test.com/api/myip.php -q -O -}  
 
-${font2}  Disk(s)
+${font2}  ${color3}Disk(s)${color1}
 ${font1}${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py disk}
 
 ]]
