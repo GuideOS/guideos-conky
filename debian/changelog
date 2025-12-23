@@ -1,3 +1,9 @@
+guideos-conky (1.3) unstable; urgency=medium
+
+  * Improved Parameter
+
+ -- Actionschnitzel <actionschnitzel@guideos.de>  Tue, 23 Dec 2025 17:28:40 +0100
+
 guideos-conky (1.1-1) unstable; urgency=medium
 
   * Added installation of guideos-conky.desktop to /usr/share/applications.
