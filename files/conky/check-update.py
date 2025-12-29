@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 # actionschnitzel for GuideOS - 2025
-# angepasst für guideos-conky von ktt73 - 11/2025
-# pkcon-Variante hinzugefügt von ktt73 - 12/2025
-# Flatpak hinzugefügt von ktt73 - 12/2025
+# adjusted for guideos-conky ktt73 - 11/2025
+# pkcon-Variant added  ktt73 - 12/2025
+# flatpak added ktt73 - 12/2025
 
 import subprocess
 
@@ -54,12 +54,12 @@ if __name__ == "__main__":
     pkcon_count = get_pkcon_update_count()
     flatpak_count = get_flatpak_update_count()
 
-    # Ausgabe so wählen, wie du es für Conky brauchst, z.B.:
-    # nur pkcon:
+    # Choose the output as you need it for Conky, e.g.:
+    # only pkcon:
     # print(pkcon_count) APT
 
-    # oder nur Flatpak:
+    # or only flatpak:
     # print(flatpak_count) Flatpak
 
-    # oder beides:
+    # or both:
     print(f"{pkcon_count} APT | {flatpak_count} Flatpak")

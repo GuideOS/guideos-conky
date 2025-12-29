@@ -18,9 +18,9 @@ conky.config = {
 	own_window_argb_value = 0,
 	minimum_width = 200, 
 	minimum_height = 200,
-	alignment = 'bottom_right',
-	gap_x = 150,
-	gap_y = 200,
+	alignment = 'bottom_left',
+	gap_x = 2040,
+	gap_y = 30,
 	
 -- Text settings
 	use_xft = true,
@@ -33,14 +33,14 @@ conky.config = {
 	color0 = '#DCDCDC',
 	color1 = '#696969',
 
--- lila 	#8A2BE2
--- Archblau 	#1793d1
--- weiß		#DCDCDC
+-- purple 	#8A2BE2
+-- archblue 	#1793d1
+-- white	#DCDCDC
 -- gold		#FFD700
 -- orange	#FFA500
--- silber	#C0C0C0
--- grau 41	#696969
--- grau 31	#4F4F4F
+-- silver	#C0C0C0
+-- grey 41	#696969
+-- grey 31	#4F4F4F
 
 
 }

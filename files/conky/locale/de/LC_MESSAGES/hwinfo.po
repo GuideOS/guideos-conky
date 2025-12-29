@@ -1,0 +1,90 @@
+# German translations for ktt package.
+# Copyright (C) 2025 THE ktt'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the ktt package.
+# KTT73 <ktt73@guideos.de>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ktt73\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-29 17:55+0100\n"
+"PO-Revision-Date: 2025-12-29 17:55+0100\n"
+"Last-Translator: KTT73 <ktt73@guideos.de>\n"
+"Language-Team: German <ktt73@guideos.de>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: hwinfo.py:31
+msgid "CPU type unknown ({})"
+msgstr "CPU Typ unbekannt ({})"
+
+#: hwinfo.py:38
+msgid "{}| {} cores | {} threads"
+msgstr "{}| {} cores | {} threads"
+
+#: hwinfo.py:42
+msgid "total {} MB | free {} MB"
+msgstr "gesamt {} MB | frei {} MB"
+
+#: hwinfo.py:85
+msgid "{} | {} | {} GB | free {} GB | used {} GB"
+msgstr "{} | {} | {} GB | frei {} GB | benutzt {} GB"
+
+#: hwinfo.py:106
+msgid "LAN IP v4"
+msgstr "LAN IP v4"
+
+#: hwinfo.py:128
+msgid "none"
+msgstr "keine"
+
+#: hwinfo.py:131
+msgid "WAN IP v4"
+msgstr "WAN IP v4"
+
+#: hwinfo.py:137 hwinfo.py:146 hwinfo.py:249 hwinfo.py:329
+msgid "unknown"
+msgstr "unbekannt"
+
+#: hwinfo.py:140
+msgid "WAN IP v6"
+msgstr "WAN IP v6"
+
+#: hwinfo.py:192
+msgid "GPU unknown"
+msgstr "GPU unbekannt"
+
+#: hwinfo.py:235
+msgid "GPU"
+msgstr "GPU"
+
+#: hwinfo.py:254
+msgid "GPU unknown ({})"
+msgstr "GPU unbekannt ({})"
+
+#: hwinfo.py:263
+msgid "GPU driver unknown"
+msgstr "GPU Treiber unbekannt"
+
+#: hwinfo.py:301 hwinfo.py:303
+msgid "nouveau (Kernel)"
+msgstr "nouveau (Kernel)"
+
+#: hwinfo.py:315
+msgid "GPU driver"
+msgstr "GPU Treiber"
+
+#: hwinfo.py:334
+msgid "GPU driver unknown ({})"
+msgstr "GPU Treiber unbekannt ({})"
+
+#: hwinfo.py:352
+msgid "Unknown parameter"
+msgstr "unbekannter Parameter"
+
+#: hwinfo.py:354
+msgid "Please specify parameter: cpu | ram | disk | net | gpu | gpu_driver"
+msgstr "Bitte spezifiziere einen Parameter: cpu | ram | disk | net | gpu | gpu_driver"
