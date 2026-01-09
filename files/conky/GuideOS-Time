@@ -34,7 +34,7 @@ conky.config = {
 	color1 = '#696969',
 
 -- lila 	#8A2BE2
--- Archblau 	#1793d1
+-- Archblau #1793d1
 -- weiß		#DCDCDC
 -- gold		#FFD700
 -- orange	#FFA500
@@ -47,8 +47,8 @@ conky.config = {
 
 conky.text = [[
 ${voffset 95}
-${goto 80}${color0}${font1}${voffset -10}${time %e}${color1}${offset -40}${voffset 10}${font2}${time %A}${color0}${voffset -5}${offset 3}${font2}KW${time %V}
-${goto 85}${color0}${voffset 0}${font2}${time %b}${voffset 0} ${color1}${font1}${time %Y}
-${goto 65}${color1}${font1}${voffset -5}${font2}${time %H}:${time %M}:${time %S}
+${goto 80}${color1}${font1}${voffset -10}${time %e}${color0}${offset -40}${voffset 10}${font2}${time %A}${color0}${voffset -10}${offset -30}${font2}KW${time %V}
+${goto 85}${color1}${voffset 0}${font2}${time %b}${voffset 0} ${color0}${font1}${Stime %Y}
+${goto 65}${color0}${font1}${voffset -5}${font2}${time %H}:${time %M}:${time %S}
 ]]
 
