@@ -6,15 +6,17 @@ The following information is retrieved via Python:
 - CPU type
 - RAM
 - GPU type
+- GPU driver
+- GPU Memory (only AMD and Nvidia)
 - network interface and IP address
 - mounted hard drive partitions
 - mounted USB drives
 - number of updates
+- ext. IP's
 
 Conky himself reads the following:
 - nodename
 - GuideOS version
-- ext. IP's
 - kernel
 - runtime
 
@@ -34,5 +36,5 @@ sudo apt install guideos-conky
 
 # Screenshot
 
-<img width="488" height="542" alt="guideos-conky" src="https://github.com/user-attachments/assets/74a7d264-6ec8-4f56-8311-1d3c7bb88db9" />
+<img width="434" height="563" alt="Bildschirmfoto vom 2026-01-09 16-16-55" src="https://github.com/user-attachments/assets/e1ecba44-4df7-45e7-9837-c7e78fa2f944" />
 

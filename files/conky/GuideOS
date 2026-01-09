@@ -69,20 +69,22 @@ ${font2}  ${color3}Kernel${color1} [${kernel}]
 
 ${font2}󰞌  ${color3}Laufzeit${color1} [${uptime_short}]
 
-${font2}󰚰  ${color3}Updates${color1} [${execi 21600 python3 /usr/lib/guideos-conky/check-update.py}]
+${font2}󰚰  ${color3}Updates${color1} [${execi 900 python3 /usr/lib/guideos-conky/check-update.py}]
 
 ${font2}󰻠  ${color3}CPU${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py cpu}]
 
-${font2}󰘚  ${color3}RAM${color1} [${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py ram}]
+${font2}󰘚  ${color3}RAM${color1} [${execpi 10 python3 /usr/lib/guideos-conky/hwinfo.py ram}]
 
 ${font2}  ${color3}GPU${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu}]
 
 ${font2}  ${color3}Treiber${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu_driver}]
-
+${if_match ${execi 21600 bash -c 'python3 /usr/lib/guideos-conky/hwinfo.py gpu | grep -E "NVIDIA|AMD" >/dev/null && echo 1 || echo 0'} == 1}
+${font2}󰘚  ${color3}GPU Speicher${color1} [${execpi 21600 python3 /usr/lib/guideos-conky/hwinfo.py gpu_memory}]
+${endif}
 ${font2}󰛳  ${color3}Netzwerk${color1}
-${font1}${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py net}
+${font1}${execpi 10 python3 /usr/lib/guideos-conky/hwinfo.py net}
 
 ${font2}  ${color3}Disk(s)${color1}
-${font1}${execpi 60 python3 /usr/lib/guideos-conky/hwinfo.py disk}
+${font1}${execpi 10 python3 /usr/lib/guideos-conky/hwinfo.py disk}
 
 ]]

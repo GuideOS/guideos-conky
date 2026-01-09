@@ -11,6 +11,12 @@
 # - GPU Treiber untereinander gelistet
 # - korrektes Auslesen aller GPU Treiber (inkl. nouveau (Kernel))
 # - RAM belegter Speicher entfernt (zu lang)
+# - GPU Speicher (total und free) via glxinfo oder sysfs (AMD, Nvidia)
+# - Kürzere GPU Bezeichnungen für integrierte Grafiken von Intel und AMD
+# - Fehlerbehandlung bei allen Abfragen verbessert
+# - Code optimiert und bereinigt
+# - Script komplett in english übersetzt
+# - Übersetzung ins Deutsche vorbereitet (gettext)
 
 import sys
 import platform
@@ -19,7 +25,11 @@ import socket
 import os
 import requests
 import re
-import subprocess
+import gettext
+
+locale_path = os.path.join(os.path.dirname(__file__), 'locale')
+lang = gettext.translation('hwinfo', localedir=locale_path, languages=['de'], fallback=True)
+_ = lang.gettext
 
 def cpu_type():
     try:
@@ -28,20 +38,20 @@ def cpu_type():
                 if line.startswith("model name"):
                     return line.split(":", 1)[1].strip()
     except Exception as e:
-        return f"CPU Typ unbekannt ({e})"
+        return _("CPU type unknown ({})").format(e)
 
 def cpu_info():
     cpu = platform.processor()
     phys = psutil.cpu_count(logical=False)
     logical = psutil.cpu_count(logical=True)
     freq = psutil.cpu_freq()
-    return f"{cpu}| {phys} Kerne | {logical} Threads"
+    return _("{}| {} cores | {} threads").format(cpu, phys, logical)
 
 def ram_info():
     mem = psutil.virtual_memory()
-    return (
-        f"gesamt {mem.total // (1024 ** 2)} MB | "
-        f"frei {mem.available // (1024 ** 2)} MB"
+    return _("total {} MB | free {} MB").format(
+        mem.total // (1024 ** 2),
+        mem.available // (1024 ** 2)
     )
 
 def get_label(device):
@@ -52,41 +62,42 @@ def get_label(device):
         return None
 
 def disk_info():
-    invalidmountpoints = ["/proc", "/sys", "/run", "/dev", "/var/lib/snapd", "/snap", "/boot/efi"]
-    validfs = ["ext4", "xfs", "btrfs", "ntfs", "vfat", "exfat"]
-    
+    invalid_mountpoints = ["/proc", "/sys", "/run", "/dev", "/var/lib/snapd", "/snap", "/boot/efi"]
+    valid_fs = ["ext4", "xfs", "btrfs", "ntfs", "vfat", "exfat"]
     disks = psutil.disk_partitions(all=False)
     infos = []
-    seendevices = set()
-    seenmounts = set()
-    
+    seen_devices = set()
+    seen_mounts = set()
+
     for d in disks:
-        if any(d.mountpoint.startswith(m) for m in invalidmountpoints):
+        if any(d.mountpoint.startswith(m) for m in invalid_mountpoints):
             continue
-        if d.fstype.lower() not in validfs:
+        if d.fstype.lower() not in valid_fs:
             continue
-        if d.device in seendevices or d.mountpoint in seenmounts:
+        if d.device in seen_devices or d.mountpoint in seen_mounts:
             continue
-        
-        seendevices.add(d.device)
-        seenmounts.add(d.mountpoint)
+
+        seen_devices.add(d.device)
+        seen_mounts.add(d.mountpoint)
         usage = psutil.disk_usage(d.mountpoint)
-        
         label = get_label(d.device)
+
         if label:
-            mountname = label.upper()
+            mount_name = label.upper()
         elif d.mountpoint == "/":
-            mountname = "ROOT"
+            mount_name = "ROOT"
         elif d.mountpoint == "/home":
-            mountname = "HOME"
+            mount_name = "HOME"
         else:
-            mountname = os.path.basename(d.mountpoint.rstrip("/")).upper()
-            
+            mount_name = os.path.basename(d.mountpoint.rstrip("/")).upper()
+
         infos.append(
-            f"{mountname} | {d.fstype} | {usage.total // 1024**3} GB | "
-            f"frei {usage.free // 1024**3} GB | "
-            f"benutzt {usage.used // 1024**3} GB"
+            _("{} | {} | {} GB | free {} GB | used {} GB").format(
+                mount_name, d.fstype, usage.total // 1024**3,
+                usage.free // 1024**3, usage.used // 1024**3
+            )
         )
+
     return "\n".join(infos)
 
 def get_wan_ipv4():
@@ -102,17 +113,17 @@ def get_wan_ipv6():
         return None
 
 def network_info():
-    label_lan = "LAN IP v4"
+    label_lan = _("LAN IP v4")
     pad_lan = label_lan + " "
     ips = []
-    
+
     for iface, addrs in psutil.net_if_addrs().items():
         if iface == "lo":
             continue
         for addr in addrs:
             if addr.family == socket.AF_INET:
                 ips.append(f"{addr.address} | {iface}")
-    
+
     lines = []
     if ips:
         if len(ips) == 1:
@@ -124,29 +135,29 @@ def network_info():
             lines.append(first_lan)
             lines.extend(rest_lan)
     else:
-        lines.append(f"{pad_lan}keine")
-    
+        lines.append(f"{pad_lan}{_('none')}")
+
     wan4 = get_wan_ipv4()
-    label_wan4 = "WAN IP v4"
+    label_wan4 = _("WAN IP v4")
     pad_wan4 = label_wan4 + " "
     if wan4:
         lines.append(f"{pad_wan4}{wan4}")
     else:
-        lines.append(f"{pad_wan4}unbekannt")
-    
+        lines.append(f"{pad_wan4}{_('unknown')}")
+
     wan6 = get_wan_ipv6()
-    label_wan6 = "WAN IP v6"
+    label_wan6 = _("WAN IP v6")
     pad_wan6 = label_wan6 + " "
     if wan6:
         lines.append(f"{pad_wan6}{wan6}")
     else:
-        lines.append(f"{pad_wan6}unbekannt")
-    
+        lines.append(f"{pad_wan6}{_('unknown')}")
+
     return "\n".join(lines)
 
 def shorten_gpu_name(model, manufacturer):
     model_lower = model.lower()
-    
+
     if manufacturer == "Intel":
         if "2nd generation core processor family" in model_lower:
             return "Intel 2nd Gen integrated"
@@ -165,7 +176,7 @@ def shorten_gpu_name(model, manufacturer):
                 return "Intel HD/UHD"
         elif "xeon" in model_lower:
             return "Intel Xeon iGPU"
-    
+
     elif manufacturer == "AMD":
         if "radeon" in model_lower and "rx" not in model_lower:
             if "ryzen" in model_lower or "zen" in model_lower:
@@ -176,7 +187,7 @@ def shorten_gpu_name(model, manufacturer):
                 return "AMD iGPU"
         elif any(x in model_lower for x in ["integrated graphics", "family graphics"]):
             return "AMD integrated"
-    
+
     return f"{manufacturer} {model}"
 
 def gpu_info():
@@ -184,16 +195,17 @@ def gpu_info():
         output = os.popen(
             "lspci | egrep 'VGA compatible controller|3D controller'"
         ).read().strip()
+
         if not output:
-            return "GPU unbekannt"
-        
+            return _("GPU unknown")
+
         lines = output.splitlines()
         known_manufacturers = [
             "NVIDIA", "Advanced Micro Devices", "AMD", "Intel", "ATI",
             "VMware", "Broadcom", "VirtualBox", "Red Hat", "QXL"
         ]
+
         models = []
-        
         for line in lines:
             if "VGA compatible controller:" in line:
                 parts = line.split("VGA compatible controller:", 1)[1].strip()
@@ -201,79 +213,79 @@ def gpu_info():
                 parts = line.split("3D controller:", 1)[1].strip()
             else:
                 parts = line.strip()
-            
+
             manufacturer_found = None
             for man in known_manufacturers:
                 if man in parts:
                     manufacturer_found = man
                     break
-            
+
             if not manufacturer_found:
                 models.append(parts)
                 continue
-            
+
             if manufacturer_found == "Advanced Micro Devices":
                 manufacturer_found = "AMD"
-            
+
             model = parts.split(manufacturer_found, 1)[1].strip()
             for trash in ["Corporation", "Inc.", "Ltd."]:
                 model = model.replace(trash, "")
+
             for sep in [" (rev", " [rev", "(rev", "[rev", " rev "]:
                 if sep in model:
                     model = model.split(sep, 1)[0]
+
             model = " ".join(model.split())
             model = model.strip("-, :")
-            
+
             short_model = shorten_gpu_name(model, manufacturer_found)
             models.append(short_model)
-        
-        label = "GPU"
-        pad = label + " "
+
+        label = _("GPU")
         lines_out = []
+
         if models:
-            if len(models) == 1:
-                lines_out.append(f"{pad}{models[0]}")
-            else:
-                first = f"\n{pad}{models[0]}"
-                indent = " " * len(pad)
-                rest = [f"{indent}{m}" for m in models[1:]]
-                lines_out.append(first)
-                lines_out.extend(rest)
+            # Alle Zeilen linksbündig mit Label
+            for m in models:
+                lines_out.append(f"{label} {m}")
         else:
-            lines_out.append(f"{pad}unbekannt")
+            lines_out.append(f"{label} {_('unknown')}")
+
         return "\n".join(lines_out)
-    
+
     except Exception as e:
-        return f"GPU unbekannt ({e})"
+        return _("GPU unknown ({})").format(e)
 
 def gpu_driver():
     try:
         output = os.popen(
             "lspci -k | egrep -A3 'VGA compatible controller|3D controller'"
         ).read().strip()
+
         if not output:
-            return "GPU Treiber unbekannt"
-        
+            return _("GPU driver unknown")
+
         lines = output.splitlines()
         drivers = []
-        
+
         for line in lines:
             if "Kernel driver in use:" in line:
                 drv = line.split("Kernel driver in use:", 1)[1].strip()
+
                 if not drv or drv == "unknown":
                     continue
-                
+
                 driver_info = f"{drv}"
-                
+
                 if drv == "nvidia" and os.path.exists("/proc/driver/nvidia/version"):
                     with open("/proc/driver/nvidia/version") as f:
                         content = f.read()
-                        version_match = re.search(
-                            r"NVRM version:.*?(\d+\.\d+(?:\.\d+)?)", content
-                        )
-                        if version_match:
-                            driver_info = f"nvidia {version_match.group(1)}"
-                
+                    version_match = re.search(
+                        r"NVRM version:.*?(\d+\.\d+(?:\.\d+)?)", content
+                    )
+                    if version_match:
+                        driver_info = f"nvidia {version_match.group(1)}"
+
                 elif drv == "amdgpu":
                     out = os.popen(
                         "modinfo amdgpu 2>/dev/null | grep '^version:'"
@@ -281,19 +293,19 @@ def gpu_driver():
                     if out:
                         ver = out.split(":", 1)[1].strip()
                         driver_info = f"amdgpu {ver}"
-                
+
                 elif drv == "nouveau":
                     if os.path.exists("/proc/driver/nvidia/version"):
                         with open("/proc/driver/nvidia/version") as f:
                             content = f.read()
-                            version_match = re.search(r"release (\d+(?:\.\d+)*)", content)
-                            if version_match:
-                                driver_info = f"nouveau {version_match.group(1)}"
-                            else:
-                                driver_info = "nouveau (Kernel)"
+                        version_match = re.search(r"release (\d+(?:\.\d+)*)", content)
+                        if version_match:
+                            driver_info = f"nouveau {version_match.group(1)}"
+                        else:
+                            driver_info = _("nouveau (Kernel)")
                     else:
-                        driver_info = "nouveau (Kernel)"
-                
+                        driver_info = _("nouveau (Kernel)")
+
                 elif drv in ["i915", "iris"]:
                     out = os.popen(
                         f"modinfo {drv} 2>/dev/null | grep '^version:'"
@@ -301,27 +313,77 @@ def gpu_driver():
                     if out:
                         ver = out.split(":", 1)[1].strip()
                         driver_info = f"{drv} {ver}"
-                
+
                 drivers.append(driver_info)
-        
-        label = "GPU Treiber"
-        pad = label + " "
+
+        label = _("GPU driver")
         lines_out = []
+
         if drivers:
-            if len(drivers) == 1:
-                lines_out.append(f"{pad}{drivers[0]}")
-            else:
-                first = f"\n{pad}{drivers[0]}"
-                indent = " " * len(pad)
-                rest = [f"{indent}{d}" for d in drivers[1:]]
-                lines_out.append(first)
-                lines_out.extend(rest)
+            # Alle Zeilen linksbündig mit Label
+            for d in drivers:
+                lines_out.append(f"{label} {d}")
         else:
-            lines_out.append(f"{pad}unbekannt")
+            lines_out.append(f"{label} {_('unknown')}")
+
         return "\n".join(lines_out)
-    
+
     except Exception as e:
-        return f"GPU Treiber unbekannt ({e})"
+        return _("GPU driver unknown ({})").format(e)
+
+def gpu_memory():
+    """Get GPU memory information (total and free) via glxinfo"""
+    try:
+        # Try NVIDIA GL_NVX_gpu_memory_info first
+        nvidia_total = os.popen(
+            "glxinfo 2>/dev/null | grep 'Total available memory' | head -1"
+        ).read().strip()
+
+        nvidia_free = os.popen(
+            "glxinfo 2>/dev/null | grep 'Currently available dedicated video memory' | head -1"
+        ).read().strip()
+
+        total_mb = None
+        free_mb = None
+
+        if nvidia_total and nvidia_free:
+            # NVIDIA format: values are already in MB, not KB!
+            total_match = re.search(r'(\d+)', nvidia_total)
+            free_match = re.search(r'(\d+)', nvidia_free)
+
+            if total_match and free_match:
+                total_mb = int(total_match.group(1))
+                free_mb = int(free_match.group(1))
+                return f"total {total_mb} MB | free {free_mb} MB"
+
+        # Try AMD via sysfs
+        amd_total_path = "/sys/class/drm/card0/device/mem_info_vram_total"
+        amd_used_path = "/sys/class/drm/card0/device/mem_info_vram_used"
+
+        if os.path.exists(amd_total_path) and os.path.exists(amd_used_path):
+            with open(amd_total_path, 'r') as f:
+                total_bytes = int(f.read().strip())
+            with open(amd_used_path, 'r') as f:
+                used_bytes = int(f.read().strip())
+
+            total_mb = total_bytes // (1024 * 1024)
+            free_mb = (total_bytes - used_bytes) // (1024 * 1024)
+
+            return f"total {total_mb} MB | free {free_mb} MB"
+
+        # Fallback: try to parse video memory from glxinfo
+        output = os.popen("glxinfo 2>/dev/null | grep -i 'video memory'").read().strip()
+
+        if output:
+            match = re.search(r'(\d+)\s*MB', output, re.IGNORECASE)
+            if match:
+                total_mb = int(match.group(1))
+                return f"total {total_mb} MB"
+
+        return _("GPU memory unknown")
+
+    except Exception as e:
+        return _("GPU memory unknown ({})").format(e)
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -338,7 +400,10 @@ if __name__ == "__main__":
             print(gpu_info())
         elif arg == "gpu_driver":
             print(gpu_driver())
+        elif arg == "gpu_memory":
+            print(gpu_memory())
         else:
-            print("Unbekannter Parameter")
+            print(_("Unknown parameter"))
     else:
-        print("Bitte Parameter angeben: cpu | ram | disk | net | gpu | gpu_driver")
+        print(_("Please specify parameter: cpu | ram | disk | net | gpu | gpu_driver | gpu_memory"))
+
