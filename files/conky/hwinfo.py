@@ -406,3 +406,4 @@ if __name__ == "__main__":
             print(_("Unknown parameter"))
     else:
         print(_("Please specify parameter: cpu | ram | disk | net | gpu | gpu_driver | gpu_memory"))
+
